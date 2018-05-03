@@ -7,8 +7,16 @@ public class ArrayList implements List {
     private Object[] array;
     private int size = 0;
 
+    private ArrayList(Object[] array) {
+        this.array = array;
+    }
+
     public ArrayList() {
         array = new Object[10];
+    }
+
+    public ArrayList(int capacity) {
+        array = new Object[capacity];
     }
 
     @Override
@@ -86,30 +94,39 @@ public class ArrayList implements List {
 
     @Override
     public void set(int index, Object item) {
+        checkForRange(index);
         array[index] = item;
     }
 
     @Override
     public void remove(int index) {
-        for(int i = index; i < size; i-- ) {
-            array[i]=array[i+1];
+        checkForRange(index);
+        for (int i = index; i < size - 1; i++) {
+            array[i] = array[i + 1];
         }
+        array[--size] = null;
     }
 
     @Override
-    public void remove(Object item) {
-        for (int i = 0; i < size; i++) {
-            if (array[i].equals(item)) {
-                for (int j = i; j < size; j++) {
-                    array[j] = array[j + 1];
-                }
-            }
-            break;
+    public boolean remove(Object item) {
+        int index = indexOf(item);
+        if (index != NOT_FOUND) {
+            return false;
         }
+        remove(index);
+        return true;
     }
 
     @Override
     public List subList(int from, int to) {
-        return null;
+        List list = new ArrayList();
+        for (int i = from; i <= to - 1; i++) {
+            list.add(array[i]);
+        }
+        return list;
+
+//        Object[] subArray = new Object[to - from + 1];
+//        System.arraycopy(array, from, subArray, 0, to - from + 1);
+//        return new ArrayList(subArray);
     }
 }

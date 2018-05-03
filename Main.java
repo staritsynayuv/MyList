@@ -6,6 +6,8 @@ public class Main {
 
     }
 
+
+
     private void showMenu() {
         System.out.println("\nВыберите действие над коллекцией: ");
         System.out.println("1. isEmpty");
@@ -19,7 +21,7 @@ public class Main {
         System.out.println("9. removeByIndex");
         System.out.println("10. remove");
         System.out.println("11. ");
-        System.out.println("8. goToMainMenu");
+        System.out.println("12. goToMainMenu");
         System.out.print(">");
     }
 }
