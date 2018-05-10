@@ -69,42 +69,45 @@ public class LinkedList implements Deque, List {
     @Override
     public Object get(int index) {
         Node current = first;
-        for (int i = 0; i <= index; i++) {
+        if (size < index) {
+            throw new NoSuchElementException();
+        }
+        for (int i = 0; i < index; i++) {
             current = current.next;
         }
+        
+        
 
         return current.item;
     }
 
     @Override
     public int indexOf(Object obj) {
-        Node current = first;
-        for (int index = 0; index < size; index++) {
+        int index = 0;
+        
+        for (Node current = first; !obj.equals(current.item) && index < size; index++) {
             current = current.next;
-            if (obj.equals(current.item)) {
-                return index;
-            }
         }
-        return NOT_FOUND;
+        return (index == size) ? NOT_FOUND: index;
     }
 
     @Override
     public int lastIndexOf(Object obj) {
-        Node current = first;
-        for (int i = size - 1; i >= 0; i--) {
+        int index = size - 1;
+
+        for (Node current =last;  (index >= 0) &&!obj.equals(current.item) ; index--) {
             current = current.next;
-            if (obj.equals(current.item)) {
-                return i;
-            }
         }
-        return NOT_FOUND;
+        return index;
     }
 
     @Override
     public void set(int index, Object item) {
         Node current = first;
-        for (int i = 0; i <= index; i++) {
-            current = first.next;
+        if (index != 0) {
+            for (int i = 0; i <= index; i++) {
+                current = first.next;
+            }
         }
         current.item = item;
 
@@ -112,6 +115,10 @@ public class LinkedList implements Deque, List {
 
     @Override
     public void remove(int index) {
+        Node current = first;
+        for (int i = 0; i <= index; i++) {
+            current = current.next;
+        }
 
     }
 
